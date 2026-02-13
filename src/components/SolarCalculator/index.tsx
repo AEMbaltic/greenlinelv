@@ -1,0 +1,112 @@
+import { useState } from "react";
+import { Sun, Zap } from "lucide-react";
+import InputSection from "./InputSection";
+import SolarChart from "./SolarChart";
+import ResultCards from "./ResultCards";
+import LeadForm from "./LeadForm";
+import { useCalculations } from "./useCalculations";
+
+const SolarCalculator = () => {
+  const [monthlyBill, setMonthlyBill] = useState(150);
+  const [priceIncrease, setPriceIncrease] = useState(4);
+  const [exposure, setExposure] = useState("medium");
+
+  const calc = useCalculations(monthlyBill, priceIncrease, exposure);
+
+  return (
+    <div className="min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-3 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
+            <Sun className="w-4 h-4" />
+            Saules enerģijas kalkulators
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
+            Cik Jūs varat <span className="text-primary">ietaupīt</span>?
+          </h1>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Aprēķiniet savu ietaupījumu ar saules paneļiem 25 gadu periodā
+          </p>
+        </div>
+
+        {/* Savings Banner */}
+        <div
+          className="relative overflow-hidden rounded-2xl p-6 text-primary-foreground animate-fade-in-up"
+          style={{ background: "linear-gradient(135deg, hsl(82, 100%, 35%), hsl(82, 80%, 42%))" }}
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
+          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Zap className="w-8 h-8 flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
+                <p className="text-3xl sm:text-4xl font-extrabold">
+                  €{calc.totalSavings25.toLocaleString("lv-LV")}
+                </p>
+              </div>
+            </div>
+            <div className="text-center sm:text-right">
+              <p className="text-sm opacity-90">Sistēmas izmaksas</p>
+              <p className="text-lg font-bold">
+                €{Math.round((monthlyBill / 100) * 6 * 1200).toLocaleString("lv-LV")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Input Section */}
+        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+          <InputSection
+            monthlyBill={monthlyBill}
+            setMonthlyBill={setMonthlyBill}
+            priceIncrease={priceIncrease}
+            setPriceIncrease={setPriceIncrease}
+            exposure={exposure}
+            setExposure={setExposure}
+          />
+        </div>
+
+        {/* Chart */}
+        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+          <h2 className="text-lg font-bold text-foreground mb-4">
+            Izmaksu salīdzinājums (25 gadi)
+          </h2>
+          <SolarChart
+            withoutPanels={calc.withoutPanels}
+            withPanels={calc.withPanels}
+            withBattery={calc.withBattery}
+          />
+        </div>
+
+        {/* Result Cards */}
+        <div className="animate-fade-in-up">
+          <ResultCards
+            co2Savings={calc.co2Savings}
+            propertyIncrease={calc.propertyIncrease}
+            paybackYears={calc.paybackYears}
+          />
+        </div>
+
+        {/* Lead Form */}
+        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold text-foreground">Saņemiet bezmaksas piedāvājumu</h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              Aizpildiet formu un mēs sagatavosim individuālu piedāvājumu
+            </p>
+          </div>
+          <LeadForm />
+        </div>
+
+        {/* Footer */}
+        <p className="text-center text-xs text-muted-foreground pb-4">
+          * Aprēķini ir indikatīvi un var atšķirties no faktiskajiem rezultātiem.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default SolarCalculator;
