@@ -8,10 +8,10 @@ import { useCalculations } from "./useCalculations";
 
 const SolarCalculator = () => {
   const [monthlyBill, setMonthlyBill] = useState(150);
-  const [priceIncrease, setPriceIncrease] = useState(4);
+  const [monthlyKwh, setMonthlyKwh] = useState(500);
   const [exposure, setExposure] = useState("medium");
 
-  const calc = useCalculations(monthlyBill, priceIncrease, exposure);
+  const calc = useCalculations(monthlyBill, monthlyKwh, exposure);
 
   return (
     <div className="min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
@@ -61,8 +61,8 @@ const SolarCalculator = () => {
           <InputSection
             monthlyBill={monthlyBill}
             setMonthlyBill={setMonthlyBill}
-            priceIncrease={priceIncrease}
-            setPriceIncrease={setPriceIncrease}
+            monthlyKwh={monthlyKwh}
+            setMonthlyKwh={setMonthlyKwh}
             exposure={exposure}
             setExposure={setExposure}
           />
