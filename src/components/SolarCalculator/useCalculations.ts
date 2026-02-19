@@ -18,23 +18,23 @@ const exposureMultiplier: Record<string, number> = {
 
 export function useCalculations(
   monthlyBill: number,
-  priceIncrease: number,
+  monthlyKwh: number,
   exposure: string
 ): CalcResult {
   return useMemo(() => {
     const years = 25;
     const annualBill = monthlyBill * 12;
-    const inflationRate = priceIncrease / 100;
+    const inflationRate = 0.04; // constant 4% per year
     const expMult = exposureMultiplier[exposure] || 1;
 
     // System sizing: ~6kW per €100/month bill
     const systemKw = (monthlyBill / 100) * 6;
     const systemCostPerKw = 1200;
     const panelCost = systemKw * systemCostPerKw;
-    const batteryCost = panelCost * 0.35; // battery ~35% of panel cost
+    const batteryCost = panelCost * 0.35;
 
-    const panelSavingsRate = 0.9 * expMult; // 90% savings adjusted by exposure
-    const batterySavingsRate = 1.0; // 100% with battery
+    const panelSavingsRate = 0.9 * expMult;
+    const batterySavingsRate = 1.0;
 
     const withoutPanels: number[] = [0];
     const withPanels: number[] = [panelCost];
@@ -47,14 +47,12 @@ export function useCalculations(
       withBattery.push(Math.round(withBattery[y - 1] + yearCost * (1 - batterySavingsRate)));
     }
 
-    // CO2: ~0.5 kg per kWh, avg Latvian household uses ~3500 kWh/year per 100€ bill
-    const annualKwh = (monthlyBill / 100) * 3500;
+    // CO2: ~0.5 kg per kWh
+    const annualKwh = monthlyKwh * 12;
     const co2Savings = Math.round(annualKwh * 0.5 * years * expMult);
 
-    // Property value increase: 4% of system cost
-    const propertyIncrease = Math.round(panelCost * 0.04 * 100); // simplified as total increase
+    const propertyIncrease = Math.round(panelCost * 0.04 * 100);
 
-    // Payback: when panels savings exceed cost
     let paybackYears = years;
     for (let y = 1; y <= years; y++) {
       if (withoutPanels[y] - withPanels[y] >= panelCost) {
@@ -74,5 +72,5 @@ export function useCalculations(
       paybackYears,
       totalSavings25,
     };
-  }, [monthlyBill, priceIncrease, exposure]);
+  }, [monthlyBill, monthlyKwh, exposure]);
 }

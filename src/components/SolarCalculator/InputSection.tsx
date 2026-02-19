@@ -1,10 +1,10 @@
-import { Sun, TrendingUp } from "lucide-react";
+import { Sun, Zap } from "lucide-react";
 
 interface InputSectionProps {
   monthlyBill: number;
   setMonthlyBill: (v: number) => void;
-  priceIncrease: number;
-  setPriceIncrease: (v: number) => void;
+  monthlyKwh: number;
+  setMonthlyKwh: (v: number) => void;
   exposure: string;
   setExposure: (v: string) => void;
 }
@@ -18,8 +18,8 @@ const exposureOptions = [
 const InputSection = ({
   monthlyBill,
   setMonthlyBill,
-  priceIncrease,
-  setPriceIncrease,
+  monthlyKwh,
+  setMonthlyKwh,
   exposure,
   setExposure,
 }: InputSectionProps) => {
@@ -34,9 +34,9 @@ const InputSection = ({
         <div className="flex items-center gap-4">
           <input
             type="range"
-            min={30}
-            max={500}
-            step={5}
+            min={150}
+            max={50000}
+            step={50}
             value={monthlyBill}
             onChange={(e) => setMonthlyBill(Number(e.target.value))}
             className="flex-1"
@@ -44,44 +44,43 @@ const InputSection = ({
           <div className="relative">
             <input
               type="number"
-              min={30}
-              max={500}
+              min={150}
+              max={50000}
               value={monthlyBill}
-              onChange={(e) => setMonthlyBill(Math.max(30, Math.min(500, Number(e.target.value))))}
-              className="w-24 h-11 rounded-lg border border-border bg-background px-3 pr-8 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              onChange={(e) => setMonthlyBill(Math.max(150, Math.min(50000, Number(e.target.value))))}
+              className="w-28 h-11 rounded-lg border border-border bg-background px-3 pr-8 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">€</span>
           </div>
         </div>
       </div>
 
-      {/* Price Increase */}
+      {/* Monthly kWh */}
       <div className="space-y-3">
         <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
-          <TrendingUp className="w-4 h-4 text-primary" />
-          Elektroenerģijas cenas pieaugums gadā
+          <Zap className="w-4 h-4 text-primary" />
+          Patērētie kilovati mēnesī
         </label>
         <div className="flex items-center gap-4">
           <input
             type="range"
-            min={1}
-            max={10}
-            step={0.5}
-            value={priceIncrease}
-            onChange={(e) => setPriceIncrease(Number(e.target.value))}
+            min={100}
+            max={100000}
+            step={100}
+            value={monthlyKwh}
+            onChange={(e) => setMonthlyKwh(Number(e.target.value))}
             className="flex-1"
           />
           <div className="relative">
             <input
               type="number"
-              min={1}
-              max={10}
-              step={0.5}
-              value={priceIncrease}
-              onChange={(e) => setPriceIncrease(Math.max(1, Math.min(10, Number(e.target.value))))}
-              className="w-24 h-11 rounded-lg border border-border bg-background px-3 pr-8 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              min={100}
+              max={100000}
+              value={monthlyKwh}
+              onChange={(e) => setMonthlyKwh(Math.max(100, Math.min(100000, Number(e.target.value))))}
+              className="w-28 h-11 rounded-lg border border-border bg-background px-3 pr-10 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
             />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">%</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">kWh</span>
           </div>
         </div>
       </div>
