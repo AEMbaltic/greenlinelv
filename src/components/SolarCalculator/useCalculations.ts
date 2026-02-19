@@ -24,7 +24,7 @@ export function useCalculations(
   return useMemo(() => {
     const years = 25;
     const annualBill = monthlyBill * 12;
-    const inflationRate = 0.04; // constant 4% per year
+    const inflationRate = 0.05; // constant 5% per year
     const expMult = exposureMultiplier[exposure] || 1;
 
     // System sizing: ~6kW per €100/month bill
