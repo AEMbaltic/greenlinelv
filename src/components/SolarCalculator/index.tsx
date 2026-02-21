@@ -49,7 +49,7 @@ const SolarCalculator = () => {
             </div>
             <div className="text-center sm:text-right space-y-1">
               <div>
-                <p className="text-sm opacity-90">Sistēmas izmaksas</p>
+                <p className="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p>
                 <p className="text-lg font-bold">
                   €{calc.systemCost.toLocaleString("lv-LV")}
                 </p>
