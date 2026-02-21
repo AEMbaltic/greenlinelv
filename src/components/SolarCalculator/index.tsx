@@ -5,6 +5,7 @@ import SolarChart from "./SolarChart";
 import ResultCards from "./ResultCards";
 import LeadForm from "./LeadForm";
 import FormulasSection from "./FormulasSection";
+import PurchaseOptions from "./PurchaseOptions";
 import { useCalculations } from "./useCalculations";
 
 const SolarCalculator = () => {
@@ -110,6 +111,9 @@ const SolarCalculator = () => {
             setExposure={setExposure}
           />
         </div>
+
+        {/* Purchase Options */}
+        <PurchaseOptions annualMwh={annualMwh} />
 
         {/* Chart */}
         <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
