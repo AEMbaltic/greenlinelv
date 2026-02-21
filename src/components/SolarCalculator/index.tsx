@@ -46,11 +46,19 @@ const SolarCalculator = () => {
                 </p>
               </div>
             </div>
-            <div className="text-center sm:text-right">
-              <p className="text-sm opacity-90">Sistēmas izmaksas</p>
-              <p className="text-lg font-bold">
-                €{calc.systemCost.toLocaleString("lv-LV")}
-              </p>
+            <div className="text-center sm:text-right space-y-1">
+              <div>
+                <p className="text-sm opacity-90">Sistēmas izmaksas</p>
+                <p className="text-lg font-bold">
+                  €{calc.systemCost.toLocaleString("lv-LV")}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm opacity-90">Altum atbalsts</p>
+                <p className="text-lg font-bold">
+                  -€{Math.round(calc.systemCost * 0.3).toLocaleString("lv-LV")}
+                </p>
+              </div>
             </div>
           </div>
         </div>
