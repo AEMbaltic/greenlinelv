@@ -60,6 +60,12 @@ const SolarCalculator = () => {
                   -€{Math.round(calc.systemCost * 0.3).toLocaleString("lv-LV")}
                 </p>
               </div>
+              <div>
+                <p className="text-sm opacity-90">Ietaupījums gadā</p>
+                <p className="text-lg font-bold">
+                  €{Math.round(annualMwh * 1000 * 0.25 * 0.8).toLocaleString("lv-LV")}
+                </p>
+              </div>
             </div>
           </div>
         </div>
