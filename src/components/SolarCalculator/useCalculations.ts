@@ -23,7 +23,8 @@ const exposureMultiplier: Record<string, number> = {
 // Reference points:
 // 100kW system = 200 panels = €59,000 = €590/kW
 // 650kW system = 1500 m² roof → ~2.31 m²/kW
-const COST_PER_KW = 590;
+const FIXED_INSTALL_COST = 10000; // fixed project/permit cost
+const VARIABLE_COST_PER_KW = 500;
 const PANELS_PER_KW = 2;
 const ROOF_M2_PER_KW = 1500 / 650; // ~2.31
 const SOLAR_YIELD_KWH_PER_KW = 950; // avg kWh produced per kWp per year in Latvia
@@ -41,7 +42,7 @@ export function useCalculations(
     const annualKwh = annualMwh * 1000;
     const systemKw = Math.round(annualKwh / SOLAR_YIELD_KWH_PER_KW);
     const panelCount = Math.round(systemKw * PANELS_PER_KW);
-    const systemCost = Math.round(systemKw * COST_PER_KW);
+    const systemCost = Math.round(FIXED_INSTALL_COST + systemKw * VARIABLE_COST_PER_KW);
     const roofSpaceM2 = Math.round(systemKw * ROOF_M2_PER_KW);
 
     // Estimate annual electricity cost: ~0.20 €/kWh average
