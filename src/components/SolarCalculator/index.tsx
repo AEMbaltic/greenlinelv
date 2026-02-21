@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sun, Zap } from "lucide-react";
+import { Sun, Zap, Grid3X3, LayoutGrid, Ruler } from "lucide-react";
 import InputSection from "./InputSection";
 import SolarChart from "./SolarChart";
 import ResultCards from "./ResultCards";
@@ -7,11 +7,10 @@ import LeadForm from "./LeadForm";
 import { useCalculations } from "./useCalculations";
 
 const SolarCalculator = () => {
-  const [monthlyBill, setMonthlyBill] = useState(150);
-  const [monthlyKwh, setMonthlyKwh] = useState(500);
+  const [annualMwh, setAnnualMwh] = useState(100);
   const [exposure, setExposure] = useState("medium");
 
-  const calc = useCalculations(monthlyBill, monthlyKwh, exposure);
+  const calc = useCalculations(annualMwh, exposure);
 
   return (
     <div className="min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
@@ -50,8 +49,39 @@ const SolarCalculator = () => {
             <div className="text-center sm:text-right">
               <p className="text-sm opacity-90">Sistēmas izmaksas</p>
               <p className="text-lg font-bold">
-                €{Math.round((monthlyBill / 100) * 6 * 1200).toLocaleString("lv-LV")}
+                €{calc.systemCost.toLocaleString("lv-LV")}
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* System Info Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in-up">
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+              <Zap className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p>
+              <p className="text-lg font-bold text-foreground">{calc.systemKw} kW</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+              <Grid3X3 className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p>
+              <p className="text-lg font-bold text-foreground">~{calc.panelCount} paneļi</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+              <Ruler className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Jumta platība</p>
+              <p className="text-lg font-bold text-foreground">~{calc.roofSpaceM2} m²</p>
             </div>
           </div>
         </div>
@@ -59,10 +89,8 @@ const SolarCalculator = () => {
         {/* Input Section */}
         <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
           <InputSection
-            monthlyBill={monthlyBill}
-            setMonthlyBill={setMonthlyBill}
-            monthlyKwh={monthlyKwh}
-            setMonthlyKwh={setMonthlyKwh}
+            annualMwh={annualMwh}
+            setAnnualMwh={setAnnualMwh}
             exposure={exposure}
             setExposure={setExposure}
           />

@@ -1,10 +1,8 @@
-import { Sun, Zap } from "lucide-react";
+import { Sun } from "lucide-react";
 
 interface InputSectionProps {
-  monthlyBill: number;
-  setMonthlyBill: (v: number) => void;
-  monthlyKwh: number;
-  setMonthlyKwh: (v: number) => void;
+  annualMwh: number;
+  setAnnualMwh: (v: number) => void;
   exposure: string;
   setExposure: (v: string) => void;
 }
@@ -16,71 +14,39 @@ const exposureOptions = [
 ];
 
 const InputSection = ({
-  monthlyBill,
-  setMonthlyBill,
-  monthlyKwh,
-  setMonthlyKwh,
+  annualMwh,
+  setAnnualMwh,
   exposure,
   setExposure,
 }: InputSectionProps) => {
   return (
     <div className="space-y-8">
-      {/* Monthly Bill */}
+      {/* Annual MWh */}
       <div className="space-y-3">
         <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Sun className="w-4 h-4 text-primary" />
-          Vidējais elektrības rēķins mēnesī
+          Energopatēriņš gadā
         </label>
         <div className="flex items-center gap-4">
           <input
             type="range"
-            min={150}
-            max={50000}
-            step={50}
-            value={monthlyBill}
-            onChange={(e) => setMonthlyBill(Number(e.target.value))}
+            min={50}
+            max={1000}
+            step={10}
+            value={annualMwh}
+            onChange={(e) => setAnnualMwh(Number(e.target.value))}
             className="flex-1"
           />
           <div className="relative">
             <input
               type="number"
-              min={150}
-              max={50000}
-              value={monthlyBill}
-              onChange={(e) => setMonthlyBill(Math.max(150, Math.min(50000, Number(e.target.value))))}
-              className="w-28 h-11 rounded-lg border border-border bg-background px-3 pr-8 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              min={50}
+              max={1000}
+              value={annualMwh}
+              onChange={(e) => setAnnualMwh(Math.max(50, Math.min(1000, Number(e.target.value))))}
+              className="w-32 h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
             />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">€</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Monthly kWh */}
-      <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
-          <Zap className="w-4 h-4 text-primary" />
-          Patērētie kilovati mēnesī
-        </label>
-        <div className="flex items-center gap-4">
-          <input
-            type="range"
-            min={100}
-            max={100000}
-            step={100}
-            value={monthlyKwh}
-            onChange={(e) => setMonthlyKwh(Number(e.target.value))}
-            className="flex-1"
-          />
-          <div className="relative">
-            <input
-              type="number"
-              min={100}
-              max={100000}
-              value={monthlyKwh}
-              onChange={(e) => setMonthlyKwh(Math.max(100, Math.min(100000, Number(e.target.value))))}
-              className="w-28 h-11 rounded-lg border border-border bg-background px-3 pr-10 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">kWh</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">MWh</span>
           </div>
         </div>
       </div>
