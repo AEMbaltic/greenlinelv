@@ -86,7 +86,7 @@ const LeadForm = () => {
             onChange={(e) => setHasTechnicalApproval(e.target.checked)}
             className="w-4 h-4 rounded border-border text-primary accent-primary"
           />
-          <span className="text-sm text-foreground">Vai ir iegūts tehniskais atzinums paneļu uzstādīšanai?</span>
+          <span className="text-sm text-foreground">Vai ir jau iegūts tehniskais atzinums paneļu uzstādīšanai?</span>
         </label>
 
         <div>
