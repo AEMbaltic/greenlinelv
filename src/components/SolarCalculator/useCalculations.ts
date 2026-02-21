@@ -45,7 +45,7 @@ export function useCalculations(
     const roofSpaceM2 = Math.round(systemKw * ROOF_M2_PER_KW);
 
     // Estimate annual electricity cost: ~0.20 €/kWh average
-    const electricityPricePerKwh = 0.20;
+    const electricityPricePerKwh = 0.30;
     const annualBill = annualKwh * electricityPricePerKwh;
 
     const panelSavingsRate = 0.9 * expMult;
