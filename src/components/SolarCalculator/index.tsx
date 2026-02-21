@@ -4,6 +4,7 @@ import InputSection from "./InputSection";
 import SolarChart from "./SolarChart";
 import ResultCards from "./ResultCards";
 import LeadForm from "./LeadForm";
+import FormulasSection from "./FormulasSection";
 import { useCalculations } from "./useCalculations";
 
 const SolarCalculator = () => {
@@ -134,6 +135,11 @@ const SolarCalculator = () => {
             </p>
           </div>
           <LeadForm />
+        </div>
+
+        {/* Formulas */}
+        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+          <FormulasSection />
         </div>
 
         {/* Footer */}
