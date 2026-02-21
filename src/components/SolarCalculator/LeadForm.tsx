@@ -3,6 +3,8 @@ import { Send } from "lucide-react";
 
 const LeadForm = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", zip: "" });
+  const [hasTechnicalApproval, setHasTechnicalApproval] = useState(false);
+  const [installLocation, setInstallLocation] = useState({ ground: false, roof: false });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -73,7 +75,44 @@ const LeadForm = () => {
             placeholder="LV-1001"
             className="w-full h-11 rounded-lg border border-border bg-background px-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
           />
+      </div>
+
+      {/* Checkboxes */}
+      <div className="space-y-3">
+        <label className="flex items-center gap-3 cursor-pointer group">
+          <input
+            type="checkbox"
+            checked={hasTechnicalApproval}
+            onChange={(e) => setHasTechnicalApproval(e.target.checked)}
+            className="w-4 h-4 rounded border-border text-primary accent-primary"
+          />
+          <span className="text-sm text-foreground">Vai ir iegūts tehniskais atzinums paneļu uzstādīšanai?</span>
+        </label>
+
+        <div>
+          <p className="text-sm font-medium text-foreground mb-2">Paneļus uzstādīšu uz:</p>
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={installLocation.ground}
+                onChange={(e) => setInstallLocation({ ...installLocation, ground: e.target.checked })}
+                className="w-4 h-4 rounded border-border text-primary accent-primary"
+              />
+              <span className="text-sm text-foreground">Zemes</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={installLocation.roof}
+                onChange={(e) => setInstallLocation({ ...installLocation, roof: e.target.checked })}
+                className="w-4 h-4 rounded border-border text-primary accent-primary"
+              />
+              <span className="text-sm text-foreground">Jumta</span>
+            </label>
+          </div>
         </div>
+      </div>
       </div>
       <button
         type="submit"
