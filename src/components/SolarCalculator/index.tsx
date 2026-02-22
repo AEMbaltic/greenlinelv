@@ -21,7 +21,7 @@ const SolarCalculator = () => {
         {/* Header */}
         <div className="text-center space-y-3 animate-fade-in-up">
           <div className="flex justify-center mb-2">
-            <img src={greenlineLogo} alt="GreenLine Energy" className="h-14 sm:h-16 object-contain" />
+            <img src={greenlineLogo} alt="GreenLine Energy" className="h-24 sm:h-32 object-contain" />
           </div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
             <Sun className="w-4 h-4" />
