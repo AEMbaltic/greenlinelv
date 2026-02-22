@@ -43,8 +43,8 @@ const SolarCalculator = () => {
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
           <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
           <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Zap className="w-8 h-8 flex-shrink-0" />
+            <div className="flex items-center gap-4">
+              <img src={greenlineLogo} alt="GreenLine Energy" className="h-12 sm:h-14 object-contain bg-white/90 rounded-lg px-2 py-1" />
               <div>
                 <p className="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
                 <p className="text-3xl sm:text-4xl font-extrabold">
