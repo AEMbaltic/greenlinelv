@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sun, Zap, Grid3X3, LayoutGrid, Ruler } from "lucide-react";
 import greenlineLogo from "@/assets/greenline-logo.png";
+import greenlineLogoWhite from "@/assets/greenline-logo-white.png";
 import InputSection from "./InputSection";
 import SolarChart from "./SolarChart";
 import ResultCards from "./ResultCards";
@@ -42,34 +43,34 @@ const SolarCalculator = () => {
         >
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
           <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
-          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <img src={greenlineLogo} alt="GreenLine Energy" className="h-12 sm:h-14 object-contain bg-white/90 rounded-lg px-2 py-1" />
-              <div>
+          <div className="relative flex flex-col items-center gap-4">
+            <img src={greenlineLogoWhite} alt="GreenLine Energy" className="h-14 sm:h-16 object-contain" />
+            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
+              <div className="text-center sm:text-left">
                 <p className="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
                 <p className="text-3xl sm:text-4xl font-extrabold">
                   €{calc.totalSavings25.toLocaleString("lv-LV")}
                 </p>
               </div>
-            </div>
-            <div className="text-center sm:text-right space-y-1">
-              <div>
-                <p className="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p>
-                <p className="text-lg font-bold">
-                  €{calc.systemCost.toLocaleString("lv-LV")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm opacity-90">Altum atbalsts</p>
-                <p className="text-lg font-bold">
-                  -€{Math.round(calc.systemCost * 0.3).toLocaleString("lv-LV")}
-                </p>
-              </div>
-              <div>
-                <p className="text-sm opacity-90">Ietaupījums katru gadu</p>
-                <p className="text-lg font-bold">
-                  €{Math.round(annualMwh * 1000 * 0.25 * 0.8).toLocaleString("lv-LV")}
-                </p>
+              <div className="text-center sm:text-right space-y-1">
+                <div>
+                  <p className="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p>
+                  <p className="text-lg font-bold">
+                    €{calc.systemCost.toLocaleString("lv-LV")}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm opacity-90">Altum atbalsts</p>
+                  <p className="text-lg font-bold">
+                    -€{Math.round(calc.systemCost * 0.3).toLocaleString("lv-LV")}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm opacity-90">Ietaupījums katru gadu</p>
+                  <p className="text-lg font-bold">
+                    €{Math.round(annualMwh * 1000 * 0.25 * 0.8).toLocaleString("lv-LV")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
