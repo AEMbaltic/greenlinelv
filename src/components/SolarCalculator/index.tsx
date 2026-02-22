@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Sun, Zap, Grid3X3, LayoutGrid, Ruler } from "lucide-react";
+import greenlineLogo from "@/assets/greenline-logo.png";
 import InputSection from "./InputSection";
 import SolarChart from "./SolarChart";
 import ResultCards from "./ResultCards";
@@ -19,6 +20,9 @@ const SolarCalculator = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-3 animate-fade-in-up">
+          <div className="flex justify-center mb-2">
+            <img src={greenlineLogo} alt="GreenLine Energy" className="h-14 sm:h-16 object-contain" />
+          </div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
             <Sun className="w-4 h-4" />
             Saules enerģijas kalkulators
