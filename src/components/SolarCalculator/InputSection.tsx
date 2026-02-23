@@ -1,5 +1,5 @@
 import { Sun } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 
 interface InputSectionProps {
   annualMwh: number;
@@ -21,12 +21,7 @@ const InputSection = ({
   setExposure
 }: InputSectionProps) => {
   const rangeRef = useRef<HTMLInputElement>(null);
-  const [thumbPos, setThumbPos] = useState("5.26%");
-
-  useEffect(() => {
-    const pct = ((annualMwh - 50) / (1000 - 50)) * 100;
-    setThumbPos(`${pct}%`);
-  }, [annualMwh]);
+  const thumbRatio = (annualMwh - 50) / (1000 - 50);
 
   return (
     <div className="space-y-8">
@@ -49,7 +44,7 @@ const InputSection = ({
               className="w-full" />
             <div
               className="slider-pulse-ring"
-              style={{ "--thumb-position": thumbPos } as React.CSSProperties}
+              style={{ "--thumb-ratio": thumbRatio } as React.CSSProperties}
             />
           </div>
           <div className="relative">
