@@ -23,9 +23,9 @@ const InputSection = ({
     <div className="space-y-8">
       {/* Annual MWh */}
       <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-semibold text-foreground">Kāds ir Jūsu energopatēriņš gadā
+        <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Sun className="w-4 h-4 text-primary" />
-          Energopatēriņš gadā
+          Kāds ir Jūsu energopatēriņš gadā?
         </label>
         <div className="flex items-center gap-4">
           <input
