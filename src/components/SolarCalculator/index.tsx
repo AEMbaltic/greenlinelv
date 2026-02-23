@@ -96,7 +96,7 @@ const SolarCalculator = () => {
               <Ruler className="w-5 h-5 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Jumta platība</p>
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Nepieciešamā jumta platība</p>
               <p className="text-lg font-bold text-foreground">~{calc.roofSpaceM2} m²</p>
             </div>
           </div>
