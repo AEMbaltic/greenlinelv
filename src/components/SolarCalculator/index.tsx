@@ -25,9 +25,7 @@ const SolarCalculator = () => {
             <Sun className="w-4 h-4" />
             Energoefektivitātes kalkulators
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Aprēķiniet, cik Jūs variet nopelnīt.
-            <span className="text-primary">nopelnīt</span>
-          </h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Aprēķiniet, cik iespējams <span className="text-primary">nopelnīt</span> uzstādot mūsu saules paneļus.</h1>
           <p className="text-muted-foreground max-w-xl mx-auto">Iegādājieties saules paneļus pie tiešajiem ražotāja partneriem - GreenLine energy             
 
           </p>
