@@ -21,23 +21,23 @@ const SolarCalculator = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Header */}
         <div className="text-center space-y-3 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">Saules paneļu efektivitātes kalkulators
             <Sun className="w-4 h-4" />
             Saules enerģijas kalkulators
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
-            Cik Jūs varat <span className="text-primary">ietaupīt</span>?
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Cik daudz Jūs varat nopelnīt?
+            <span className="text-primary">ietaupīt</span>?
           </h1>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Aprēķiniet savu ietaupījumu ar saules paneļiem 25 gadu periodā
+          <p className="text-muted-foreground max-w-xl mx-auto">Pastāstīsim Jums kapēc uzstādīt GreenLine Energy saules paneļus.
+
           </p>
         </div>
 
         {/* Savings Banner */}
         <div
           className="relative overflow-hidden rounded-2xl p-6 text-primary-foreground animate-fade-in-up"
-          style={{ background: "linear-gradient(135deg, hsl(82, 100%, 35%), hsl(82, 80%, 42%))" }}
-        >
+          style={{ background: "linear-gradient(135deg, hsl(82, 100%, 35%), hsl(82, 80%, 42%))" }}>
+
           <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
           <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
           <div className="relative flex flex-col items-center gap-4">
@@ -110,8 +110,8 @@ const SolarCalculator = () => {
             annualMwh={annualMwh}
             setAnnualMwh={setAnnualMwh}
             exposure={exposure}
-            setExposure={setExposure}
-          />
+            setExposure={setExposure} />
+
         </div>
 
         {/* Purchase Options */}
@@ -125,8 +125,8 @@ const SolarCalculator = () => {
           <SolarChart
             withoutPanels={calc.withoutPanels}
             withPanels={calc.withPanels}
-            withBattery={calc.withBattery}
-          />
+            withBattery={calc.withBattery} />
+
         </div>
 
         {/* Result Cards */}
@@ -134,8 +134,8 @@ const SolarCalculator = () => {
           <ResultCards
             co2Savings={calc.co2Savings}
             propertyIncrease={calc.propertyIncrease}
-            paybackYears={calc.paybackYears}
-          />
+            paybackYears={calc.paybackYears} />
+
         </div>
 
         {/* Lead Form */}
@@ -159,8 +159,8 @@ const SolarCalculator = () => {
           * Aprēķini ir indikatīvi un var atšķirties no faktiskajiem rezultātiem.
         </p>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default SolarCalculator;
