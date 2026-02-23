@@ -9,7 +9,16 @@ const LeadForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would send data to your backend
+    const inquiry = {
+      id: Date.now().toString(),
+      ...form,
+      hasTechnicalApproval,
+      installLocation,
+      submittedAt: new Date().toISOString(),
+    };
+    const existing = JSON.parse(localStorage.getItem("inquiries") || "[]");
+    existing.push(inquiry);
+    localStorage.setItem("inquiries", JSON.stringify(existing));
     setSubmitted(true);
   };
 
