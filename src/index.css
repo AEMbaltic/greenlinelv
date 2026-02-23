@@ -63,17 +63,6 @@
 }
 
 /* Custom slider styling */
-@keyframes thumb-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 hsl(82 100% 35% / 0.5), 0 2px 8px hsl(82 100% 35% / 0.4);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 0 12px hsl(82 100% 35% / 0), 0 2px 16px hsl(82 100% 35% / 0.6);
-    transform: scale(1.15);
-  }
-}
-
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -82,7 +71,6 @@ input[type="range"] {
   border-radius: 999px;
   background: hsl(210 15% 90%);
   outline: none;
-  position: relative;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -94,14 +82,12 @@ input[type="range"]::-webkit-slider-thumb {
   background: hsl(82 100% 35%);
   border: 3px solid white;
   cursor: pointer;
-  box-shadow: 0 0 0 0 hsl(82 100% 35% / 0.4), 0 2px 8px hsl(82 100% 35% / 0.3);
-  animation: thumb-pulse 2s ease-in-out infinite;
+  box-shadow: 0 2px 8px hsl(82 100% 35% / 0.4);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
-  animation: none;
   box-shadow: 0 0 0 6px hsl(82 100% 35% / 0.15), 0 2px 12px hsl(82 100% 35% / 0.5);
 }
 
@@ -112,11 +98,30 @@ input[type="range"]::-moz-range-thumb {
   background: hsl(82 100% 35%);
   border: 3px solid white;
   cursor: pointer;
-  box-shadow: 0 0 0 0 hsl(82 100% 35% / 0.4), 0 2px 8px hsl(82 100% 35% / 0.3);
-  animation: thumb-pulse 2s ease-in-out infinite;
+  box-shadow: 0 2px 8px hsl(82 100% 35% / 0.4);
 }
 
-input[type="range"]::-moz-range-thumb:hover {
-  transform: scale(1.2);
-  animation: none;
+/* Slider pulse ring */
+@keyframes slider-ring-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.slider-pulse-ring {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: hsl(82 100% 35% / 0.3);
+  pointer-events: none;
+  top: 50%;
+  left: var(--thumb-position, 50%);
+  transform: translate(-50%, -50%);
+  animation: slider-ring-pulse 2s ease-in-out infinite;
 }
