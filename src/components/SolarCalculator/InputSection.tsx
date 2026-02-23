@@ -8,22 +8,22 @@ interface InputSectionProps {
 }
 
 const exposureOptions = [
-  { value: "low", label: "Zema", icon: "☁️", desc: "Ēnains rajons" },
-  { value: "medium", label: "Vidēja", icon: "⛅", desc: "Daļēji saulains" },
-  { value: "high", label: "Augsta", icon: "☀️", desc: "Pilnīgi saulains" },
-];
+{ value: "low", label: "Zema", icon: "☁️", desc: "Ēnains rajons" },
+{ value: "medium", label: "Vidēja", icon: "⛅", desc: "Daļēji saulains" },
+{ value: "high", label: "Augsta", icon: "☀️", desc: "Pilnīgi saulains" }];
+
 
 const InputSection = ({
   annualMwh,
   setAnnualMwh,
   exposure,
-  setExposure,
+  setExposure
 }: InputSectionProps) => {
   return (
     <div className="space-y-8">
       {/* Annual MWh */}
       <div className="space-y-3">
-        <label className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        <label className="flex items-center gap-2 text-sm font-semibold text-foreground">Kāds ir Jūsu energopatēriņš gadā
           <Sun className="w-4 h-4 text-primary" />
           Energopatēriņš gadā
         </label>
@@ -35,8 +35,8 @@ const InputSection = ({
             step={10}
             value={annualMwh}
             onChange={(e) => setAnnualMwh(Number(e.target.value))}
-            className="flex-1"
-          />
+            className="flex-1" />
+
           <div className="relative">
             <input
               type="number"
@@ -44,8 +44,8 @@ const InputSection = ({
               max={1000}
               value={annualMwh}
               onChange={(e) => setAnnualMwh(Math.max(50, Math.min(1000, Number(e.target.value))))}
-              className="w-32 h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-            />
+              className="w-32 h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">MWh</span>
           </div>
         </div>
@@ -57,25 +57,25 @@ const InputSection = ({
           Saules ekspozīcija
         </label>
         <div className="grid grid-cols-3 gap-3">
-          {exposureOptions.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => setExposure(opt.value)}
-              className={`relative flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
-                exposure === opt.value
-                  ? "border-primary bg-accent shadow-solar-glow"
-                  : "border-border bg-background hover:border-primary/30 hover:bg-accent/50"
-              }`}
-            >
+          {exposureOptions.map((opt) =>
+          <button
+            key={opt.value}
+            onClick={() => setExposure(opt.value)}
+            className={`relative flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+            exposure === opt.value ?
+            "border-primary bg-accent shadow-solar-glow" :
+            "border-border bg-background hover:border-primary/30 hover:bg-accent/50"}`
+            }>
+
               <span className="text-2xl">{opt.icon}</span>
               <span className="text-sm font-semibold text-foreground">{opt.label}</span>
               <span className="text-xs text-muted-foreground">{opt.desc}</span>
             </button>
-          ))}
+          )}
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default InputSection;
