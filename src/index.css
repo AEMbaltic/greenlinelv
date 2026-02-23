@@ -105,10 +105,10 @@ input[type="range"]::-moz-range-thumb {
 @keyframes slider-ring-pulse {
   0%, 100% {
     transform: translate(-50%, -50%) scale(1);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.8);
+    transform: translate(-50%, -50%) scale(2.5);
     opacity: 0;
   }
 }
@@ -118,10 +118,11 @@ input[type="range"]::-moz-range-thumb {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: hsl(82 100% 35% / 0.3);
+  background: hsl(82 100% 35% / 0.4);
   pointer-events: none;
   top: 50%;
-  left: var(--thumb-position, 50%);
+  /* Account for browser thumb clamping: thumb center = 14px + (100% - 28px) * position */
+  left: calc(14px + (100% - 28px) * var(--thumb-ratio, 0.5));
   transform: translate(-50%, -50%);
-  animation: slider-ring-pulse 2s ease-in-out infinite;
+  animation: slider-ring-pulse 1.5s ease-in-out infinite;
 }
