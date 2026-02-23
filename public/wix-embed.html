@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenLine Energy — Saules Enerģijas Kalkulators</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ["'Plus Jakarta Sans'", "sans-serif"] },
+      colors: {
+        primary: { DEFAULT: "hsl(82,100%,35%)", foreground: "hsl(0,0%,100%)" },
+        solar: { dark: "hsl(82,80%,28%)", light: "hsl(82,60%,94%)", glow: "hsl(82,100%,35%)" },
+        foreground: "hsl(210,20%,16%)",
+        muted: { DEFAULT: "hsl(210,20%,96%)", foreground: "hsl(210,10%,50%)" },
+        accent: { DEFAULT: "hsl(82,50%,92%)", foreground: "hsl(82,70%,22%)" },
+        border: "hsl(210,15%,90%)",
+        card: "hsl(0,0%,100%)",
+        background: "hsl(0,0%,100%)",
+        "chart-without": "hsl(0,70%,55%)",
+        "chart-panels": "hsl(82,100%,35%)",
+        "chart-battery": "hsl(200,85%,50%)",
+      },
+    },
+  },
+}
+</script>
+<style>
+body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: hsl(0,0%,100%); color: hsl(210,20%,16%); -webkit-font-smoothing: antialiased; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 999px; background: hsl(210,15%,90%); outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 28px; height: 28px; border-radius: 50%; background: hsl(82,100%,35%); border: 3px solid white; cursor: pointer; box-shadow: 0 2px 8px hsla(82,100%,35%,0.4); transition: transform .15s, box-shadow .15s; }
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 0 0 6px hsla(82,100%,35%,0.15), 0 2px 12px hsla(82,100%,35%,0.5); }
+input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: hsl(82,100%,35%); border: 3px solid white; cursor: pointer; box-shadow: 0 2px 8px hsla(82,100%,35%,0.4); }
+.shadow-solar-sm { box-shadow: 0 1px 3px 0 hsla(210,20%,16%,0.04); }
+.shadow-solar-glow { box-shadow: 0 0 24px -4px hsla(82,100%,35%,0.3); }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+.animate-fade-in-up { animation: fadeInUp .5s ease-out both; }
+</style>
+</head>
+<body>
+<div id="app" class="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
+<div class="max-w-4xl mx-auto space-y-8">
+
+<!-- Header -->
+<div class="text-center space-y-3 animate-fade-in-up">
+  <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    Energoefektivitātes kalkulators
+  </div>
+  <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Aprēķiniet, cik iespējams <span class="text-primary">nopelnīt</span> uzstādot mūsu saules paneļus</h1>
+  <p class="text-muted-foreground max-w-xl mx-auto">Iegādājieties saules paneļus pie tiešajiem ražotāja partneriem - GreenLine energy</p>
+</div>
+
+<!-- Savings Banner -->
+<div id="savings-banner" class="relative overflow-hidden rounded-2xl p-6 text-white animate-fade-in-up" style="background:linear-gradient(135deg,hsl(82,100%,35%),hsl(82,80%,42%))">
+  <div class="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8"></div>
+  <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6"></div>
+  <div class="relative flex flex-col sm:flex-row items-center justify-between w-full gap-4">
+    <div class="text-center sm:text-left">
+      <p class="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
+      <p class="text-3xl sm:text-4xl font-extrabold" id="total-savings">€0</p>
+    </div>
+    <div class="text-center sm:text-right space-y-1">
+      <div><p class="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p><p class="text-lg font-bold" id="system-cost-display">€0</p></div>
+      <div><p class="text-sm opacity-90">Altum atbalsts</p><p class="text-lg font-bold" id="altum-display">-€0</p></div>
+      <div><p class="text-sm opacity-90">Ietaupījums katru gadu</p><p class="text-lg font-bold" id="yearly-saving-display">€0</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- System Info Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in-up">
+  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p><p class="text-lg font-bold" id="system-kw">0 kW</p></div>
+  </div>
+  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    </div>
+    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p><p class="text-lg font-bold" id="panel-count">~0 paneļi</p></div>
+  </div>
+  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
+      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/></svg>
+    </div>
+    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Nepieciešamā jumta platība</p><p class="text-lg font-bold" id="roof-space">~0 m²</p></div>
+  </div>
+</div>
+
+<!-- Input Section -->
+<div class="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+  <div class="space-y-8">
+    <div class="space-y-3">
+      <label class="flex items-center gap-2 text-sm font-semibold">
+        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        Kāds ir Jūsu energopatēriņš gadā?
+      </label>
+      <div class="flex items-center gap-4">
+        <input type="range" id="range-input" min="50" max="1000" step="10" value="100" class="flex-1">
+        <div class="relative">
+          <input type="number" id="number-input" min="50" max="1000" value="100" class="w-32 h-11 rounded-lg border border-border bg-white px-3 pr-14 text-right font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+          <span class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">MWh</span>
+        </div>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <label class="text-sm font-semibold">Saules ekspozīcija</label>
+      <div class="grid grid-cols-3 gap-3" id="exposure-buttons"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart -->
+<div class="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+  <h2 class="text-lg font-bold mb-4">Izmaksu salīdzinājums (25 gadi)</h2>
+  <div style="height:380px"><canvas id="chart"></canvas></div>
+</div>
+
+<!-- Result Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in-up">
+  <div class="rounded-xl border border-border bg-card p-5 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent mb-3">
+      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75"/></svg>
+    </div>
+    <p class="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">CO₂ ietaupījums</p>
+    <p class="text-2xl font-bold" id="co2-savings">0 kg</p>
+    <p class="text-xs text-muted-foreground mt-1">25 gadu periodā</p>
+  </div>
+  <div class="rounded-xl border border-border bg-card p-5 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-blue-50 mb-3">
+      <svg class="w-5 h-5 text-chart-battery" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    </div>
+    <p class="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Īpašuma vērtības pieaugums</p>
+    <p class="text-2xl font-bold" id="property-increase">+0 €</p>
+    <p class="text-xs text-muted-foreground mt-1">+4% no sistēmas vērtības</p>
+  </div>
+  <div class="rounded-xl border border-border bg-card p-5 shadow-solar-sm">
+    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-amber-50 mb-3">
+      <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <p class="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Atmaksāšanās laiks</p>
+    <p class="text-2xl font-bold" id="payback-years">~0 gadi</p>
+    <p class="text-xs text-muted-foreground mt-1">Vidējais termiņš</p>
+  </div>
+</div>
+
+<!-- Lead Form -->
+<div class="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+  <div class="text-center mb-6">
+    <h2 class="text-xl font-bold">Saņemiet bezmaksas piedāvājumu</h2>
+    <p class="text-sm text-muted-foreground mt-1">Aizpildiet formu un mēs sagatavosim individuālu piedāvājumu</p>
+  </div>
+  <form id="lead-form" class="space-y-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div><label class="block text-sm font-medium mb-1.5">Vārds</label><input type="text" required maxlength="100" placeholder="Jūsu vārds" class="w-full h-11 rounded-lg border border-border bg-white px-4 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"></div>
+      <div><label class="block text-sm font-medium mb-1.5">E-pasts</label><input type="email" required maxlength="255" placeholder="jusu@epasts.lv" class="w-full h-11 rounded-lg border border-border bg-white px-4 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"></div>
+      <div><label class="block text-sm font-medium mb-1.5">Telefons</label><input type="tel" required maxlength="20" placeholder="+371 20000000" class="w-full h-11 rounded-lg border border-border bg-white px-4 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"></div>
+      <div><label class="block text-sm font-medium mb-1.5">Pasta indekss</label><input type="text" required maxlength="10" placeholder="LV-1001" class="w-full h-11 rounded-lg border border-border bg-white px-4 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"></div>
+      <div class="sm:col-span-2 space-y-3">
+        <label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="tech-approval" class="w-4 h-4 rounded accent-primary"><span class="text-sm">Atzīmējiet, ja ir jau iegūts tehniskais atzinums paneļu uzstādīšanai.</span></label>
+        <div><p class="text-sm font-medium mb-2">Paneļus uzstādīšu uz:</p><div class="flex gap-6"><label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-primary"><span class="text-sm">Zemes</span></label><label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="w-4 h-4 rounded accent-primary"><span class="text-sm">Jumta</span></label></div></div>
+      </div>
+    </div>
+    <button type="submit" class="w-full sm:w-auto px-8 h-12 rounded-xl bg-primary text-white font-semibold text-base hover:brightness-90 active:scale-[0.98] transition-all duration-200 shadow-solar-glow flex items-center justify-center gap-2 mx-auto">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4zM22 2 11 13"/></svg>
+      Saņemt piedāvājumu
+    </button>
+  </form>
+  <div id="form-success" class="hidden text-center py-10">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent mb-4">
+      <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4zM22 2 11 13"/></svg>
+    </div>
+    <h3 class="text-xl font-bold mb-2">Paldies!</h3>
+    <p class="text-muted-foreground">Mēs ar jums sazināsimies tuvākajā laikā.</p>
+  </div>
+</div>
+
+<!-- Formulas Accordion -->
+<div class="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+  <button id="formulas-toggle" class="w-full flex items-center justify-between text-lg font-bold text-left">
+    Izmantotās formulas
+    <svg class="w-5 h-5 transition-transform" id="formulas-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+  <div id="formulas-content" class="hidden space-y-4 pt-4"></div>
+</div>
+
+<p class="text-center text-xs text-muted-foreground pb-4">* Aprēķini ir indikatīvi un var atšķirties no faktiskajiem rezultātiem.</p>
+</div>
+</div>
+
+<script>
+// Constants
+const FIXED_INSTALL_COST = 10000, VARIABLE_COST_PER_KW = 500, PANELS_PER_KW = 2;
+const ROOF_M2_PER_KW = 1500 / 650, SOLAR_YIELD = 950;
+const exposureMult = { low: 0.75, medium: 1.0, high: 1.15 };
+const exposureOpts = [
+  { value: "low", label: "Zema", icon: "☁️", desc: "Ēnains rajons" },
+  { value: "medium", label: "Vidēja", icon: "⛅", desc: "Daļēji saulains" },
+  { value: "high", label: "Augsta", icon: "☀️", desc: "Pilnīgi saulains" }
+];
+
+let annualMwh = 100, exposure = "medium", chart = null;
+
+// Format number LV
+const fmt = n => n.toLocaleString("lv-LV");
+
+// Build exposure buttons
+const btnContainer = document.getElementById("exposure-buttons");
+exposureOpts.forEach(opt => {
+  const btn = document.createElement("button");
+  btn.dataset.value = opt.value;
+  btn.className = "relative flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer";
+  btn.innerHTML = `<span class="text-2xl">${opt.icon}</span><span class="text-sm font-semibold">${opt.label}</span><span class="text-xs text-muted-foreground">${opt.desc}</span>`;
+  btn.onclick = () => { exposure = opt.value; update(); };
+  btnContainer.appendChild(btn);
+});
+
+// Formulas
+const formulas = [
+  { title: "Sistēmas jauda (kW)", formula: "systemKw = energopatēriņš_gadā (MWh) × 1000 ÷ 950", desc: "950 kWh/kWp — vidējā saules enerģijas izstrāde gadā Latvijā" },
+  { title: "Paneļu skaits", formula: "panelCount = systemKw × 2", desc: "~2 paneļi uz katru kW sistēmas jaudas" },
+  { title: "Jumta platība (m²)", formula: "roofSpace = systemKw × 2.31", desc: "Aprēķināts no references: 650 kW sistēmai nepieciešami ~1500 m²" },
+  { title: "Sistēmas izmaksas (€)", formula: "systemCost = 10 000 + systemKw × 500", desc: "€10 000 fiksētās instalācijas izmaksas + €500/kW mainīgās izmaksas" },
+  { title: "Altum atbalsts (€)", formula: "altumSupport = systemCost × 0.30", desc: "30% no kopējām sistēmas izmaksām" },
+  { title: "Gada elektrības rēķins (€)", formula: "annualBill = energopatēriņš (kWh) × 0.30 €/kWh", desc: "Bāzes elektroenerģijas cena: €0.30/kWh" },
+  { title: "Elektroenerģijas cenas pieaugums", formula: "yearCost(y) = annualBill × (1 + 0.05)^y", desc: "Konstants 5% ikgadējs cenas pieaugums" },
+  { title: "Ietaupījums ar paneļiem", formula: "savings = yearCost × 0.90 × exposureMultiplier", desc: "90% ietaupījums, koriģēts ar saules ekspozīcijas koeficientu (zema: 0.75, vidēja: 1.0, augsta: 1.15)" },
+  { title: "Ietaupījums ar paneļiem + akumulatoru", formula: "savings = yearCost × 1.00", desc: "100% ietaupījums; akumulatora izmaksas = sistēmas izmaksas × 0.35" },
+  { title: "Atmaksāšanās laiks", formula: "Gads y, kad: Σ(ietaupījumi 1..y) ≥ systemCost", desc: "Pirmais gads, kurā kumulatīvais ietaupījums pārsniedz sistēmas izmaksas" },
+  { title: "CO₂ ietaupījums (kg)", formula: "co2 = energopatēriņš (kWh) × 0.5 × 25 × exposureMultiplier", desc: "~0.5 kg CO₂ uz katru kWh, 25 gadu periodā" },
+  { title: "Īpašuma vērtības pieaugums (€)", formula: "propertyIncrease = systemCost × 0.04 × 100", desc: "+4% no sistēmas vērtības" },
+];
+const fc = document.getElementById("formulas-content");
+formulas.forEach(f => {
+  fc.innerHTML += `<div class="rounded-lg border border-border bg-gray-50 p-4"><p class="text-sm font-semibold mb-1">${f.title}</p><code class="block text-sm font-mono text-primary bg-accent/50 rounded px-3 py-1.5 mb-2">${f.formula}</code><p class="text-xs text-muted-foreground">${f.desc}</p></div>`;
+});
+document.getElementById("formulas-toggle").onclick = () => {
+  const c = document.getElementById("formulas-content");
+  const ch = document.getElementById("formulas-chevron");
+  c.classList.toggle("hidden");
+  ch.style.transform = c.classList.contains("hidden") ? "" : "rotate(180deg)";
+};
+
+// Inputs
+const rangeInput = document.getElementById("range-input");
+const numberInput = document.getElementById("number-input");
+rangeInput.oninput = e => { annualMwh = +e.target.value; numberInput.value = annualMwh; update(); };
+numberInput.onchange = e => { annualMwh = Math.max(50, Math.min(1000, +e.target.value)); rangeInput.value = annualMwh; numberInput.value = annualMwh; update(); };
+
+// Lead form
+document.getElementById("lead-form").onsubmit = e => {
+  e.preventDefault();
+  document.getElementById("lead-form").classList.add("hidden");
+  document.getElementById("form-success").classList.remove("hidden");
+};
+
+// Calculate
+function calculate() {
+  const years = 25, inflRate = 0.05, expMult = exposureMult[exposure] || 1;
+  const annualKwh = annualMwh * 1000;
+  const systemKw = Math.round(annualKwh / SOLAR_YIELD);
+  const panelCount = Math.round(systemKw * PANELS_PER_KW);
+  const systemCost = Math.round(FIXED_INSTALL_COST + systemKw * VARIABLE_COST_PER_KW);
+  const roofSpaceM2 = Math.round(systemKw * ROOF_M2_PER_KW);
+  const annualBill = annualKwh * 0.30;
+  const panelSavingsRate = 0.9 * expMult;
+  const batteryCost = systemCost * 0.35;
+  const withoutPanels = [0], withPanels = [systemCost], withBattery = [systemCost + batteryCost];
+  for (let y = 1; y <= years; y++) {
+    const yc = annualBill * Math.pow(1 + inflRate, y);
+    withoutPanels.push(Math.round(withoutPanels[y-1] + yc));
+    withPanels.push(Math.round(withPanels[y-1] + yc * (1 - panelSavingsRate)));
+    withBattery.push(Math.round(withBattery[y-1] + yc * (1 - 1.0)));
+  }
+  const co2Savings = Math.round(annualKwh * 0.5 * years * expMult);
+  const propertyIncrease = Math.round(systemCost * 0.04 * 100);
+  let paybackYears = years;
+  for (let y = 1; y <= years; y++) { if (withoutPanels[y] - withPanels[y] >= systemCost) { paybackYears = y; break; } }
+  const totalSavings25 = withoutPanels[years] - withPanels[years];
+  return { withoutPanels, withPanels, withBattery, co2Savings, propertyIncrease, paybackYears, totalSavings25, systemKw, panelCount, systemCost, roofSpaceM2 };
+}
+
+// Chart
+function initChart(c) {
+  const labels = Array.from({length:26},(_,i)=>`${i}`);
+  const ctx = document.getElementById("chart").getContext("2d");
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        { label:"Bez paneļiem", data:c.withoutPanels, borderColor:"hsl(0,70%,55%)", backgroundColor:"hsla(0,70%,55%,0.05)", borderWidth:2.5, fill:true, tension:0.4, pointRadius:0, pointHoverRadius:5 },
+        { label:"Tikai paneļi", data:c.withPanels, borderColor:"hsl(82,100%,35%)", backgroundColor:"hsla(82,100%,35%,0.08)", borderWidth:2.5, fill:true, tension:0.4, pointRadius:0, pointHoverRadius:5 },
+        { label:"Paneļi + Akumulators", data:c.withBattery, borderColor:"hsl(200,85%,50%)", backgroundColor:"hsla(200,85%,50%,0.05)", borderWidth:2.5, fill:true, tension:0.4, pointRadius:0, pointHoverRadius:5 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:"index",intersect:false},
+      plugins:{
+        legend:{position:"top",labels:{usePointStyle:true,pointStyle:"circle",padding:20,font:{family:"'Plus Jakarta Sans'",size:13,weight:600}}},
+        tooltip:{backgroundColor:"hsl(210,20%,16%)",titleFont:{family:"'Plus Jakarta Sans'",size:13},bodyFont:{family:"'Plus Jakarta Sans'",size:12},padding:12,cornerRadius:10,
+          callbacks:{label:ctx=>`${ctx.dataset.label}: €${ctx.parsed.y.toLocaleString("lv-LV")}`,title:items=>`Gads ${items[0].label}`}}
+      },
+      scales:{
+        x:{title:{display:true,text:"Gadi",font:{family:"'Plus Jakarta Sans'",size:13,weight:600},color:"hsl(210,10%,50%)"},grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},color:"hsl(210,10%,60%)"}},
+        y:{title:{display:true,text:"Kumulatīvās izmaksas (€)",font:{family:"'Plus Jakarta Sans'",size:13,weight:600},color:"hsl(210,10%,50%)"},grid:{color:"hsl(210,15%,94%)"},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},color:"hsl(210,10%,60%)",callback:v=>`€${(v/1000).toFixed(0)}k`}}
+      }
+    }
+  });
+}
+
+function update() {
+  const c = calculate();
+  // Banner
+  document.getElementById("total-savings").textContent = `€${fmt(c.totalSavings25)}`;
+  document.getElementById("system-cost-display").textContent = `€${fmt(c.systemCost)}`;
+  document.getElementById("altum-display").textContent = `-€${fmt(Math.round(c.systemCost*0.3))}`;
+  document.getElementById("yearly-saving-display").textContent = `€${fmt(Math.round(annualMwh*1000*0.25*0.8))}`;
+  // Cards
+  document.getElementById("system-kw").textContent = `${c.systemKw} kW`;
+  document.getElementById("panel-count").textContent = `~${c.panelCount} paneļi`;
+  document.getElementById("roof-space").textContent = `~${c.roofSpaceM2} m²`;
+  // Result cards
+  document.getElementById("co2-savings").textContent = `${fmt(c.co2Savings)} kg`;
+  document.getElementById("property-increase").textContent = `+${fmt(c.propertyIncrease)} €`;
+  document.getElementById("payback-years").textContent = `~${c.paybackYears} gadi`;
+  // Exposure buttons
+  document.querySelectorAll("#exposure-buttons button").forEach(btn => {
+    const active = btn.dataset.value === exposure;
+    btn.className = `relative flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${active ? "border-primary bg-accent shadow-solar-glow" : "border-border bg-white hover:border-primary/30 hover:bg-accent/50"}`;
+  });
+  // Chart
+  if (chart) {
+    chart.data.datasets[0].data = c.withoutPanels;
+    chart.data.datasets[1].data = c.withPanels;
+    chart.data.datasets[2].data = c.withBattery;
+    chart.update();
+  } else { initChart(c); }
+}
+
+update();
+</script>
+</body>
+</html>
