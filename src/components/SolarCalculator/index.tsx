@@ -147,11 +147,6 @@ const SolarCalculator = () => {
           <LeadForm />
         </div>
 
-        {/* Formulas */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
-          <FormulasSection />
-        </div>
-
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground pb-4">
           * Aprēķini ir indikatīvi un var atšķirties no faktiskajiem rezultātiem.
