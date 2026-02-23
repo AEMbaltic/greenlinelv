@@ -23,7 +23,7 @@ const SolarCalculator = () => {
         <div className="text-center space-y-3 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
             <Sun className="w-4 h-4" />
-            Cik energo efektīvs ir Jūsu uzņēmums?
+            Energoefektivitātes kalkulators
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
             Aprēķiniet, cik Jūs varat <span className="text-primary">nopelnīt</span>
