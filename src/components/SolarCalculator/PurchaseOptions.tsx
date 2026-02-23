@@ -35,7 +35,7 @@ const PurchaseOptions = ({ annualMwh }: PurchaseOptionsProps) => {
               Porsche Taycan {taycanCount > 1 ? `× ${taycanCount}` : ""}
             </span>
             <p className="text-sm text-muted-foreground">
-              Ar Jūsu ietaupījumiem 25 gadu laikā varat atļauties{" "}
+              Ar Jūsu ietaupījumiem varat atļauties{" "}
               {taycanCount > 1 ? `${taycanCount} Porsche Taycan automašīnas` : "Porsche Taycan"}!
             </p>
           </div>
