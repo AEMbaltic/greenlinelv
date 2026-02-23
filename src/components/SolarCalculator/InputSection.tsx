@@ -1,4 +1,5 @@
 import { Sun } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 
 interface InputSectionProps {
   annualMwh: number;
@@ -19,6 +20,14 @@ const InputSection = ({
   exposure,
   setExposure
 }: InputSectionProps) => {
+  const rangeRef = useRef<HTMLInputElement>(null);
+  const [thumbPos, setThumbPos] = useState("5.26%");
+
+  useEffect(() => {
+    const pct = ((annualMwh - 50) / (1000 - 50)) * 100;
+    setThumbPos(`${pct}%`);
+  }, [annualMwh]);
+
   return (
     <div className="space-y-8">
       {/* Annual MWh */}
@@ -28,15 +37,21 @@ const InputSection = ({
           Kāds ir Jūsu energopatēriņš gadā?
         </label>
         <div className="flex items-center gap-4">
-          <input
-            type="range"
-            min={50}
-            max={1000}
-            step={10}
-            value={annualMwh}
-            onChange={(e) => setAnnualMwh(Number(e.target.value))}
-            className="flex-1" />
-
+          <div className="relative flex-1 flex items-center">
+            <input
+              ref={rangeRef}
+              type="range"
+              min={50}
+              max={1000}
+              step={10}
+              value={annualMwh}
+              onChange={(e) => setAnnualMwh(Number(e.target.value))}
+              className="w-full" />
+            <div
+              className="slider-pulse-ring"
+              style={{ "--thumb-position": thumbPos } as React.CSSProperties}
+            />
+          </div>
           <div className="relative">
             <input
               type="number"
@@ -45,7 +60,6 @@ const InputSection = ({
               value={annualMwh}
               onChange={(e) => setAnnualMwh(Math.max(50, Math.min(1000, Number(e.target.value))))}
               className="w-32 h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
-
             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">MWh</span>
           </div>
         </div>
