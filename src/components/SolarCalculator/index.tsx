@@ -25,10 +25,7 @@ const SolarCalculator = () => {
             <Sun className="w-4 h-4" />
             Energoefektivitātes kalkulators
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Aprēķiniet, cik iespējams nopelnīt uzstādot GreenLine saules paneļus<span className="text-primary">nopelnīsiet</span> uzstādot GreenLine saules paneļus</h1>
-          
-
-
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Aprēķiniet, cik iespējams <span className="text-primary">nopelnīt</span> uzstādot GreenLine saules paneļus</h1>
         </div>
 
         {/* Savings Banner */}
