@@ -79,24 +79,24 @@ input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; border-radius
 </div>
 
 <!-- System Info Cards -->
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in-up">
-  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+<div class="grid grid-cols-3 gap-2 sm:gap-4 animate-fade-in-up">
+  <div class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+    <div class="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     </div>
-    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p><p class="text-lg font-bold" id="system-kw">0 kW</p></div>
+    <div><p class="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p><p class="text-sm sm:text-lg font-bold" id="system-kw">0 kW</p></div>
   </div>
-  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+  <div class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+    <div class="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
     </div>
-    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p><p class="text-lg font-bold" id="panel-count">~0 paneļi</p></div>
+    <div><p class="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p><p class="text-sm sm:text-lg font-bold" id="panel-count">~0</p></div>
   </div>
-  <div class="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-    <div class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-      <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/></svg>
+  <div class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+    <div class="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+      <svg class="w-4 h-4 sm:w-5 sm:h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 12h20M12 2v20"/></svg>
     </div>
-    <div><p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Nepieciešamā jumta platība</p><p class="text-lg font-bold" id="roof-space">~0 m²</p></div>
+    <div><p class="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Jumta platība</p><p class="text-sm sm:text-lg font-bold" id="roof-space">~0 m²</p></div>
   </div>
 </div>
 
