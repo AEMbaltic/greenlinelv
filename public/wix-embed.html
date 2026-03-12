@@ -62,18 +62,18 @@ input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; border-radius
 </div>
 
 <!-- Savings Banner -->
-<div id="savings-banner" class="relative overflow-hidden rounded-2xl p-6 text-white animate-fade-in-up" style="background:linear-gradient(135deg,hsl(82,100%,35%),hsl(82,80%,42%))">
-  <div class="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8"></div>
-  <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6"></div>
-  <div class="relative flex flex-col sm:flex-row items-center justify-between w-full gap-4">
+<div id="savings-banner" class="relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white animate-fade-in-up" style="background:linear-gradient(135deg,hsl(82,100%,35%),hsl(82,80%,42%))">
+  <div class="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8"></div>
+  <div class="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6"></div>
+  <div class="relative flex flex-col sm:flex-row items-center justify-between w-full gap-3 sm:gap-4">
     <div class="text-center sm:text-left">
-      <p class="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
-      <p class="text-3xl sm:text-4xl font-extrabold" id="total-savings">€0</p>
+      <p class="text-xs sm:text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
+      <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold" id="total-savings">€0</p>
     </div>
     <div class="text-center sm:text-right space-y-1">
-      <div><p class="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p><p class="text-lg font-bold" id="system-cost-display">€0</p></div>
-      <div><p class="text-sm opacity-90">Altum atbalsts</p><p class="text-lg font-bold" id="altum-display">-€0</p></div>
-      <div><p class="text-sm opacity-90">Ietaupījums katru gadu</p><p class="text-lg font-bold" id="yearly-saving-display">€0</p></div>
+      <div><p class="text-xs sm:text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p><p class="text-base sm:text-lg font-bold" id="system-cost-display">€0</p></div>
+      <div><p class="text-xs sm:text-sm opacity-90">Altum atbalsts</p><p class="text-base sm:text-lg font-bold" id="altum-display">-€0</p></div>
+      <div><p class="text-xs sm:text-sm opacity-90">Ietaupījums katru gadu</p><p class="text-base sm:text-lg font-bold" id="yearly-saving-display">€0</p></div>
     </div>
   </div>
 </div>
