@@ -128,7 +128,7 @@ const SolarChart = ({ withoutPanels, withPanels, withBattery }: SolarChartProps)
   };
 
   return (
-    <div className="h-[350px] sm:h-[420px]">
+    <div className="h-[280px] sm:h-[350px] md:h-[420px]">
       <Line data={data} options={options} />
     </div>
   );
