@@ -15,10 +15,10 @@ const PurchaseOptions = ({ annualMwh }: PurchaseOptionsProps) => {
   const taycanCount = Math.floor((annualMwh - 70) / 30) + 1;
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
-      <div className="flex items-center gap-2 mb-4">
-        <Car className="w-5 h-5 text-primary" />
-        <h2 className="text-lg font-bold text-foreground">Par brīvajiem līdzekļiem Jūs varētu iegādāties:
+    <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8 shadow-solar-sm animate-fade-in-up">
+      <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <Car className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+        <h2 className="text-base sm:text-lg font-bold text-foreground">Par brīvajiem līdzekļiem Jūs varētu iegādāties:
 
         </h2>
       </div>

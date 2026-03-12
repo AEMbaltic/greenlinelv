@@ -65,20 +65,20 @@ const InputSection = ({
         <label className="text-sm font-semibold text-foreground">
           Saules ekspozīcija
         </label>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {exposureOptions.map((opt) =>
           <button
             key={opt.value}
             onClick={() => setExposure(opt.value)}
-            className={`relative flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+            className={`relative flex flex-col items-center gap-1 sm:gap-1.5 p-2.5 sm:p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
             exposure === opt.value ?
             "border-primary bg-accent shadow-solar-glow" :
             "border-border bg-background hover:border-primary/30 hover:bg-accent/50"}`
             }>
 
-              <span className="text-2xl">{opt.icon}</span>
-              <span className="text-sm font-semibold text-foreground">{opt.label}</span>
-              <span className="text-xs text-muted-foreground">{opt.desc}</span>
+              <span className="text-xl sm:text-2xl">{opt.icon}</span>
+              <span className="text-xs sm:text-sm font-semibold text-foreground">{opt.label}</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">{opt.desc}</span>
             </button>
           )}
         </div>
