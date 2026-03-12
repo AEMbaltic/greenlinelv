@@ -69,32 +69,32 @@ const SolarCalculator = () => {
         </div>
 
         {/* System Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fade-in-up">
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-              <Zap className="w-5 h-5 text-primary" />
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 animate-fade-in-up">
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+            <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p>
-              <p className="text-lg font-bold text-foreground">{calc.systemKw} kW</p>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Sistēmas jauda</p>
+              <p className="text-sm sm:text-lg font-bold text-foreground">{calc.systemKw} kW</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-              <Grid3X3 className="w-5 h-5 text-primary" />
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+            <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+              <Grid3X3 className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p>
-              <p className="text-lg font-bold text-foreground">~{calc.panelCount} paneļi</p>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Paneļu skaits</p>
+              <p className="text-sm sm:text-lg font-bold text-foreground">~{calc.panelCount}</p>
             </div>
           </div>
-          <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-solar-sm">
-            <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-accent">
-              <Ruler className="w-5 h-5 text-primary" />
+          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-1.5 sm:gap-3 rounded-xl border border-border bg-card p-3 sm:p-4 shadow-solar-sm text-center sm:text-left">
+            <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-accent shrink-0">
+              <Ruler className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
             <div>
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Nepieciešamā jumta platība</p>
-              <p className="text-lg font-bold text-foreground">~{calc.roofSpaceM2} m²</p>
+              <p className="text-[10px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wide">Jumta platība</p>
+              <p className="text-sm sm:text-lg font-bold text-foreground">~{calc.roofSpaceM2} m²</p>
             </div>
           </div>
         </div>
