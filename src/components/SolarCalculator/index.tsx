@@ -17,49 +17,49 @@ const SolarCalculator = () => {
   const calc = useCalculations(annualMwh, exposure);
 
   return (
-    <div className="min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-background py-4 px-3 sm:py-6 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto space-y-5 sm:space-y-8">
         {/* Header */}
-        <div className="text-center space-y-3 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
-            <Sun className="w-4 h-4" />
+        <div className="text-center space-y-2 sm:space-y-3 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-accent text-accent-foreground text-xs sm:text-sm font-semibold">
+            <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Energoefektivitātes kalkulators
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Aprēķiniet, cik iespējams <span className="text-primary">nopelnīt</span> uzstādot GreenLine saules paneļus</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground tracking-tight leading-tight">Aprēķiniet, cik iespējams <span className="text-primary">nopelnīt</span> uzstādot GreenLine saules paneļus</h1>
         </div>
 
         {/* Savings Banner */}
         <div
-          className="relative overflow-hidden rounded-2xl p-6 text-primary-foreground animate-fade-in-up"
+          className="relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 text-primary-foreground animate-fade-in-up"
           style={{ background: "linear-gradient(135deg, hsl(82, 100%, 35%), hsl(82, 80%, 42%))" }}>
 
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
-          <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
-          <div className="relative flex flex-col items-center gap-2">
-            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-4">
+          <div className="absolute top-0 right-0 w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-white/10 -translate-y-8 translate-x-8" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-white/5 translate-y-6 -translate-x-6" />
+          <div className="relative flex flex-col items-center gap-3 sm:gap-2">
+            <div className="flex flex-col sm:flex-row items-center justify-between w-full gap-3 sm:gap-4">
               <div className="text-center sm:text-left">
-                <p className="text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
-                <p className="text-3xl sm:text-4xl font-extrabold">
+                <p className="text-xs sm:text-sm font-medium opacity-90">Kopējais ietaupījums 25 gados</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold">
                   €{calc.totalSavings25.toLocaleString("lv-LV")}
                 </p>
               </div>
-              <img src={greenlineLogoWhite} alt="GreenLine Energy" className="h-36 sm:h-48 object-contain brightness-0 invert drop-shadow-lg" />
+              <img src={greenlineLogoWhite} alt="GreenLine Energy" className="h-20 sm:h-36 md:h-48 object-contain brightness-0 invert drop-shadow-lg" />
               <div className="text-center sm:text-right space-y-1">
                 <div>
-                  <p className="text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p>
-                  <p className="text-lg font-bold">
+                  <p className="text-xs sm:text-sm opacity-90">Sistēmas izmaksas ar uzstādīšanu</p>
+                  <p className="text-base sm:text-lg font-bold">
                     €{calc.systemCost.toLocaleString("lv-LV")}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm opacity-90">Altum atbalsts</p>
-                  <p className="text-lg font-bold">
+                  <p className="text-xs sm:text-sm opacity-90">Altum atbalsts</p>
+                  <p className="text-base sm:text-lg font-bold">
                     -€{Math.round(calc.systemCost * 0.3).toLocaleString("lv-LV")}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm opacity-90">Ietaupījums katru gadu</p>
-                  <p className="text-lg font-bold">
+                  <p className="text-xs sm:text-sm opacity-90">Ietaupījums katru gadu</p>
+                  <p className="text-base sm:text-lg font-bold">
                     €{Math.round(annualMwh * 1000 * 0.25 * 0.8).toLocaleString("lv-LV")}
                   </p>
                 </div>
