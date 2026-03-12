@@ -31,7 +31,7 @@ const InputSection = ({
           <Sun className="w-4 h-4 text-primary" />
           Kāds ir Jūsu energopatēriņš gadā?
         </label>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
           <div className="relative flex-1 flex items-center">
             <input
               ref={rangeRef}
@@ -47,15 +47,15 @@ const InputSection = ({
               style={{ "--thumb-ratio": thumbRatio } as React.CSSProperties}
             />
           </div>
-          <div className="relative">
+          <div className="relative self-end sm:self-auto">
             <input
               type="number"
               min={50}
               max={1000}
               value={annualMwh}
               onChange={(e) => setAnnualMwh(Math.max(50, Math.min(1000, Number(e.target.value))))}
-              className="w-32 h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-sm">MWh</span>
+              className="w-28 sm:w-32 h-10 sm:h-11 rounded-lg border border-border bg-background px-3 pr-14 text-right font-semibold text-foreground text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium text-xs sm:text-sm">MWh</span>
           </div>
         </div>
       </div>
