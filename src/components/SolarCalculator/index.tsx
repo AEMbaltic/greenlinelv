@@ -134,10 +134,10 @@ const SolarCalculator = () => {
         </div>
 
         {/* Lead Form */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
-          <div className="text-center mb-6">
-            <h2 className="text-xl font-bold text-foreground">Saņemiet bezmaksas piedāvājumu</h2>
-            <p className="text-sm text-muted-foreground mt-1">
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8 shadow-solar-sm animate-fade-in-up">
+          <div className="text-center mb-4 sm:mb-6">
+            <h2 className="text-lg sm:text-xl font-bold text-foreground">Saņemiet bezmaksas piedāvājumu</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
               Aizpildiet formu un mēs sagatavosim individuālu piedāvājumu
             </p>
           </div>
