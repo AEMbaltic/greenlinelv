@@ -100,7 +100,7 @@ const SolarCalculator = () => {
         </div>
 
         {/* Input Section */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-solar-sm animate-fade-in-up">
+        <div className="rounded-xl sm:rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8 shadow-solar-sm animate-fade-in-up">
           <InputSection
             annualMwh={annualMwh}
             setAnnualMwh={setAnnualMwh}
